@@ -1,0 +1,60 @@
+file "IP445Bo.template"
+{
+pattern
+{P,        R,     PORT,    MASK}
+{G13_Acromag:IP445:, Bo0,  IP445, 0x00000001}
+{G13_Acromag:IP445:, Bo1,  IP445, 0x00000002}
+{G13_Acromag:IP445:, Bo2,  IP445, 0x00000004}
+{G13_Acromag:IP445:, Bo3,  IP445, 0x00000008}
+{G13_Acromag:IP445:, Bo4,  IP445, 0x00000010}
+{G13_Acromag:IP445:, Bo5,  IP445, 0x00000020}
+{G13_Acromag:IP445:, Bo6,  IP445, 0x00000040}
+{G13_Acromag:IP445:, Bo7,  IP445, 0x00000080}
+{G13_Acromag:IP445:, Bo8,  IP445, 0x00000100}
+{G13_Acromag:IP445:, Bo9,  IP445, 0x00000200}
+{G13_Acromag:IP445:, Bo10, IP445, 0x00000400}
+{G13_Acromag:IP445:, Bo11, IP445, 0x00000800}
+{G13_Acromag:IP445:, Bo12, IP445, 0x00001000}
+{G13_Acromag:IP445:, Bo13, IP445, 0x00002000}
+{G13_Acromag:IP445:, Bo14, IP445, 0x00004000}
+{G13_Acromag:IP445:, Bo15, IP445, 0x00008000}
+{G13_Acromag:IP445:, Bo16, IP445, 0x00010000}
+{G13_Acromag:IP445:, Bo17, IP445, 0x00020000}
+{G13_Acromag:IP445:, Bo18, IP445, 0x00040000}
+{G13_Acromag:IP445:, Bo19, IP445, 0x00080000}
+{G13_Acromag:IP445:, Bo20, IP445, 0x00100000}
+{G13_Acromag:IP445:, Bo21, IP445, 0x00200000}
+{G13_Acromag:IP445:, Bo22, IP445, 0x00400000}
+{G13_Acromag:IP445:, Bo23, IP445, 0x00800000}
+{G13_Acromag:IP445:, Bo24, IP445, 0x01000000}
+{G13_Acromag:IP445:, Bo25, IP445, 0x02000000}
+{G13_Acromag:IP445:, Bo26, IP445, 0x04000000}
+{G13_Acromag:IP445:, Bo27, IP445, 0x08000000}
+{G13_Acromag:IP445:, Bo28, IP445, 0x10000000}
+{G13_Acromag:IP445:, Bo29, IP445, 0x20000000}
+{G13_Acromag:IP445:, Bo30, IP445, 0x40000000}
+{G13_Acromag:IP445:, Bo31, IP445, 0x80000000}
+}
+
+file "IP445Lo.template"
+{
+pattern
+{P,         R,       PORT}
+{G13_Acromag:IP445:,  Lo,     IP445}
+}
+
+file "IP445Mbbo.template"
+{
+pattern
+{P,         R,       PORT}
+{G13_Acromag:IP445:,  Mbbo,   IP445}
+}
+
+file "asynRecord.db"
+{
+pattern
+{P,               R,       PORT,  ADDR, OMAX, IMAX}
+{G13_Acromag:IP445:,  asyn,   IP445,     0,    0,    0}
+}
+
+

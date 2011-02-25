@@ -1,0 +1,6 @@
+record(longout,"$(P)$(R)")
+{
+    field(PINI,"YES")
+    field(DTYP,"asynUInt32Digital")
+    field(OUT,"@asynMask($(PORT) 0 0xffffffff)DIGITAL_DATA")
+}
