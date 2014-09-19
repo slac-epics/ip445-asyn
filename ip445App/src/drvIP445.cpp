@@ -18,11 +18,11 @@
 #define IP445_ID       0x09
 
 typedef struct {
-    volatile epicsUInt8 *controlRegister;
-    volatile epicsUInt8 *outputPort0;
-    volatile epicsUInt8 *outputPort1;
-    volatile epicsUInt8 *outputPort2;
-    volatile epicsUInt8 *outputPort3;
+    volatile epicsUInt16 *controlRegister;
+    volatile epicsUInt16 *outputPort0;
+    volatile epicsUInt16 *outputPort1;
+    volatile epicsUInt16 *outputPort2;
+    volatile epicsUInt16 *outputPort3;
 } IP445Registers;
 
 
@@ -38,7 +38,7 @@ public:
 
 private:
     asynStatus readBack(asynUser *pasynUser);
-    epicsUInt8 *baseAddress;
+    epicsUInt16 *baseAddress;
     IP445Registers regs;
     epicsUInt32 prevValue;
     int initialized;
@@ -53,7 +53,7 @@ IP445::IP445(const char *portName, int carrier, int slot)
 {
     //static const char *functionName = "IP445";
     ipac_idProm_t *id;
-    epicsUInt8 *base;
+    epicsUInt16 *base;
     int manufacturer, model;
     
     this->initialized = 0;
@@ -63,8 +63,8 @@ IP445::IP445(const char *portName, int carrier, int slot)
        return;
     }
     id = (ipac_idProm_t *) ipmBaseAddr(carrier, slot, ipac_addrID);
-    base = (epicsUInt8 *) ipmBaseAddr(carrier, slot, ipac_addrIO);
-    this->baseAddress = base;
+    base = (epicsUInt16 *) ipmBaseAddr(carrier, slot, ipac_addrIO);
+    this->baseAddress = (epicsUInt16*) base;
     manufacturer = id->manufacturerId & 0xff;
     model = id->modelId & 0xff;
 
@@ -76,14 +76,14 @@ IP445::IP445(const char *portName, int carrier, int slot)
 
     /* Set up the register pointers.*/
     /* Define registers in units of 8-bit bytes */
-    this->regs.controlRegister          = base + 0x1;
-    this->regs.outputPort0              = base + 0x3;
-    this->regs.outputPort1              = base + 0x5;
-    this->regs.outputPort2              = base + 0x7;
-    this->regs.outputPort3              = base + 0x9;
+    this->regs.controlRegister          = base + 0x0;
+    this->regs.outputPort0              = base + 0x1;
+    this->regs.outputPort1              = base + 0x2;
+    this->regs.outputPort2              = base + 0x3;
+    this->regs.outputPort3              = base + 0x4;
     
     /* Create the asynPortDriver parameter for the data */
-    createParam("DIGITAL_DATA", asynParamUInt32Digital, &this->dataParam); 
+   createParam("DIGITAL_DATA", asynParamUInt32Digital, &this->dataParam); 
 
     this->initialized = 1;
 
@@ -101,15 +101,15 @@ asynStatus IP445::writeUInt32Digital(asynUser *pasynUser, epicsUInt32 value, epi
 
     if (!this->initialized) return(asynError);
     /* Set any bits that are set in the value and the mask */
-    *r.outputPort0  |= (epicsUInt8) (value & mask);
-    *r.outputPort1  |= (epicsUInt8) ((value & mask) >> 8);
-    *r.outputPort2  |= (epicsUInt8) ((value & mask) >> 16);
-    *r.outputPort3  |= (epicsUInt8) ((value & mask) >> 24);
+    *r.outputPort0  |=  (value & mask);
+    *r.outputPort1  |= ((value & mask) >> 8);
+    *r.outputPort2  |= ((value & mask) >> 16);
+    *r.outputPort3  |= ((value & mask) >> 24);
     /* Clear bits that are clear in the value and set in the mask */
-    *r.outputPort0  &= (epicsUInt8) (value | ~mask);
-    *r.outputPort1  &= (epicsUInt8) ((value | ~mask) >> 8);
-    *r.outputPort2  &= (epicsUInt8) ((value | ~mask) >> 16);
-    *r.outputPort3  &= (epicsUInt8) ((value | ~mask) >> 24);
+    *r.outputPort0  &=  (value | ~mask);
+    *r.outputPort1  &= ((value | ~mask) >> 8);
+    *r.outputPort2  &= ((value | ~mask) >> 16);
+    *r.outputPort3  &= ((value | ~mask) >> 24);
     readBack(pasynUser);
     asynPrint(pasynUser, ASYN_TRACEIO_DRIVER,
               "%s:%s, value=%x, mask=%x\n", 
