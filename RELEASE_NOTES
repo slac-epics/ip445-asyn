@@ -1,3 +1,7 @@
+R1.3.1:	K. Luchini, 10/20/2019
+        Upgrade to IPAC R2.14-0.2.0 
+        Upgrade to ASYN R4.32-1.0.0 
+
 R1.3.0: Changes for the new Git Workflow
     Using new version of ipac (R2.14-0.1.0) and asyn (R4.30-0.3.0).
     Building for all cross targets specified at base.
